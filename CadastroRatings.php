@@ -3,11 +3,15 @@
          <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css">
 
          <script type="text/javascript">
-             function  changeItem(id) {
-                var select = document.querySelector('select');
-                options = select.querySelectorAll('option');
-                options[select.selectedIndex].add("selected");
-               
+             function  changeItem(s,v) {
+                   
+               for ( var i = 0; i <s.options.length; i++) {
+                    if ( s.options[i].value === v ) {
+                        s.options[i].selected = true;
+                        return s.options[i].value;
+                    }
+                }
+
              }
          </script>;
          
@@ -69,7 +73,7 @@ if($ratings->Id>0){
             <div class='row'>
                 <div class='col-md-6'>   
                     <label id='lblMovie' class='text-left form-inline' style='color: blue'>Movie</label>
-                   ";?> <select name='movieId' onchange='changeItem()'   class='form-control'>
+                    ";?> <select id='ddlMovie' name='movieId' onchange="changeItem(this,this.value);"   class='form-control'>
                     <option value='0' >Selecione...</option>";
                     <?php
                     foreach ($listMovies as $value) {
@@ -103,7 +107,7 @@ if($ratings->Id>0){
                 </div>
                 <div class='col-md-6'>    
                     <label id='lblUser' class='text-left form-inline' style='color: blue'>User</label>
-                    ";?><select name='userId' onchange='changeItem()'    class='form-control'>
+                    ";?><select id='ddlUser' name='userId' onchange='changeItem(this,this.value);'    class='form-control'>
                         <option value='0' >Selecione...</option>";
                         <?php
                           foreach ($listUsers as $item){ 
@@ -148,7 +152,7 @@ if($ratings->Id>0){
             <div class='row'>
                 <div class='col-md-6'>    
                    <label id='lblMovie' class='text-left form-inline' style='color: blue'>Movie</label>
-                      ";?><select name='movieId' onchange='changeItem()'    class='form-control'>
+                      ";?><select  id='ddlMovie' name='movieId' onchange='changeItem(this,this.value);'    class='form-control'>
                           <option value='0' >Selecione...</option>";
                       <?php
                        foreach ($listMovies as $value) {
@@ -174,7 +178,7 @@ if($ratings->Id>0){
                 </div>
                 <div class='col-md-6'>    
                     <label id='lblUser' class='text-left form-inline' style='color: blue'>User</label>
-                    ";?><select name='userId' onchange='changeItem()'     class='form-control'>
+                    ";?><select id='ddlUser' name='userId' onchange='changeItem(this,this.value);'     class='form-control'>
                        <option value='0' >Selecione...</option>";
                        <?php
                        foreach ($listUsers as $value) {
