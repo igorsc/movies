@@ -41,14 +41,14 @@ class RatingsController extends RatingsModel {
     
       public function Salvar($id,$movieId,$score,$timestamp,$userId,$ip ){
          $model = new RatingsModel();
-          
+   
          if ($id>0){
-             
-          return $model->Update($id, $movieId, $score, $timestamp, $userId, $ip);
+            
+		     return $model->Update($id, $movieId, $score, $timestamp, $userId, $ip);
           
          }else {
 
-           return $model->Insert($movieId, $score, $timestamp, $userId, $ip);
+             return $model->Insert($movieId, $score, $timestamp, $userId, $ip);
          }   
    
       }
@@ -62,6 +62,22 @@ class RatingsController extends RatingsModel {
         return $model->Delete($id);
         
     }
+	
+	
+	 public function getByMovie($ratingsId){
+	   
+					 
+		$model= new RatingsModel();
+		return $model->getByMovie($ratingsId);
+	}
+	
+	 public function getByUser($ratingsId){
+	   
+					 
+		$model= new RatingsModel();
+		return $model->getByUser($ratingsId);
+	}
+	
     
     
      

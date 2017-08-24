@@ -50,7 +50,7 @@ $user=$_GET['user'];
     
     
           
-          if($ratings->Id && $ratings->MovieId!='' && $ratings->Score!=''&& $ratings->TimeStamp!='' && $ratings->UserId!='' && $ratings->Ip!=''  ){        
+          if($ratings->Id>0 && $ratings->MovieId!='' && $ratings->Score!=''&& $ratings->TimeStamp!='' && $ratings->UserId!='' && $ratings->Ip!=''  ){        
                        
                    $controleratings->Salvar($ratings->Id ,$ratings->MovieId, $ratings->Score,$ratings->TimeStamp,$ratings->UserId, $ratings->Ip);
                    

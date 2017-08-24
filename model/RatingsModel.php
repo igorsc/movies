@@ -31,7 +31,7 @@ class RatingsModel extends BancoDados{
                  $list=$conectar->query("select * from ratings r 
                                             inner join movies  m on r.movie=m.id 
                                             inner join users  u on r.user=u.id
-                                            order by  r.movie asc;");
+                                            order by  m.title asc;");
                  return $list; 
                
               }
@@ -121,7 +121,7 @@ class RatingsModel extends BancoDados{
                 throw new Exception("Não foi possivel conectar ao banco de dados");
             }else {
                                 
-                $conectar->query("Update ratings Set movie='$movieId',score='$score',timestamp='$timestamp',user='$userId',ip=$ip
+                $conectar->query("Update ratings Set movie='$movieId',score='$score',timestamp='$timestamp',user='$userId',ip='$ip'
                         Where id= '$id';");
 
             }
@@ -149,7 +149,7 @@ class RatingsModel extends BancoDados{
                 
                }else {
                                       
-                      $conectar->query("Insert Into ratings  values('$movieId','$score','$timestamp','$userId','$ip');"); 
+                      $conectar->query("Insert Into ratings (movie,score,timestamp,user,ip)  values('$movieId','$score','$timestamp','$userId','$ip');"); 
                } 
             
             
@@ -195,12 +195,59 @@ class RatingsModel extends BancoDados{
     
     
     
-    
-   
+    public function getByMovie($ratingsId){
+	   try {
+				$conn = new BancoDados();
+				 $conectar =$conn->Conectar();
+				
+				if ( $conectar==null) {
+					 
+				  throw new Exception("Não foi possivel conectar ao banco de dados");
+				  
+				}else {
+		  
+				   $list=$conectar->query( "select m.title  from ratings r 
+											  inner join movies m on r.movie = m.id
+											  where r.id=$ratingsId;");
+					
+					 
+				   return $list; 
+				 
+				}
+		  } catch (PDOException $exc) {
+			  echo $exc->getMessage();
+		  }
+	}
+	
+	   
    
    
      
-    
+     public function getByUser($ratingsId){
+	   try {
+				$conn = new BancoDados();
+				 $conectar =$conn->Conectar();
+				
+				if ( $conectar==null) {
+					 
+				  throw new Exception("Não foi possivel conectar ao banco de dados");
+				  
+				}else {
+		  
+				   $list=$conectar->query( "select u.name  from ratings r 
+											  inner join users u on r.user = u.id
+											  where r.id=$ratingsId;");
+					
+					 
+				   return $list; 
+				 
+				}
+		  } catch (PDOException $exc) {
+			  echo $exc->getMessage();
+		  }
+	}
+	
+	   
     
 
     

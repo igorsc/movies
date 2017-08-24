@@ -19,6 +19,8 @@ class Ratings{
     public $TimeStamp;
     public $UserId;
     public $Ip;
+	
+	private $itens;
     
     
     function getMovieId() {
@@ -61,10 +63,7 @@ class Ratings{
         $this->Ip = $Ip;
     }
 
-
-    
-    
-   
+	
 
 
     

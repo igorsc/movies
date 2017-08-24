@@ -2,14 +2,20 @@
          <link rel="stylesheet" type="text/css" href="Content/bootstrap.css">
          <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css">
 
-         <script type="text/javascript">
-             function  changeItem(id) {
-                var select = document.querySelector('select');
-                options = select.querySelectorAll('option');
-                options[select.selectedIndex].add("selected");
-               
+        <!-- <script type="text/javascript">
+         
+             function  changeItem(s,v) {
+              
+               for ( var i = 0; i <s.options.length; i++) {
+                    if ( s.options[i].value === v ) {
+                        s.options[i].selected = true;
+                        return s.options[i].value;
+                    }
+                }
+
              }
-         </script>;
+
+         </script>-->
          
          
           <table border="1" class="table-responsive" style="border:solid;width: 100%; border-style:inset; background-color:#3071a9;height: 120px;direction:initial" >
@@ -40,9 +46,11 @@ $ratings->Id = $_REQUEST['id'];
 
   $listMovies  = $controleratings->GetDataMovies();
   $listUsers  = $controleratings->GetDataUsers();
-
+  
+ 
 if($ratings->Id>0){
-    
+     //$itemMovie=$controleratings->getByMovie($ratings->Id);
+   	 //$itemUser= $controleratings->getByUser($ratings->Id);
     
     $movie=$_REQUEST['movie'];
     $user=$_REQUEST['user'];
@@ -69,17 +77,17 @@ if($ratings->Id>0){
             <div class='row'>
                 <div class='col-md-6'>   
                     <label id='lblMovie' class='text-left form-inline' style='color: blue'>Movie</label>
-                   ";?> <select name='movieId' onchange='changeItem()'   class='form-control'>
-                    <option value='0' >Selecione...</option>";
+                    ";?> <select id='ddlMovie' name='movieId' onchange="changeItem(this,this.value);"   class='form-control'>
+                    <option value='0' >Selecione...</option>
                     <?php
                     foreach ($listMovies as $value) {
                         
-                        if ($value['title']==$movie) {
-                             echo "<option value=".$value['id']." selected >$movie</option>";
+                        if ($value['id']==$ratings->MovieId) {
+                             echo "<option value=".$value['id']." selected >".$value['title']."</option>";
                         }else{
                             
                              echo"
-                                <option value=".$value['id']."  >".$value['title']."</option>" ; 
+                                <option value=".$value['id']." >".$value['title']."</option>" ; 
                             
                         }
         
@@ -103,20 +111,21 @@ if($ratings->Id>0){
                 </div>
                 <div class='col-md-6'>    
                     <label id='lblUser' class='text-left form-inline' style='color: blue'>User</label>
-                    ";?><select name='userId' onchange='changeItem()'    class='form-control'>
-                        <option value='0' >Selecione...</option>";
+                    ";?><select id='ddlUser' name='userId' onchange='changeItem(this,this.value);'    class='form-control'>
+                        <option value='0' >Selecione...</option>
                         <?php
-                          foreach ($listUsers as $item){ 
-                              
-                              if ($item['name']==$user) {
-                                    echo "<option value=".$item['id']." selected >$user</option>";
-                              }else{
-                            
-                                    echo '<option value='.$item['id'].' >'.$item['name'].'</option> '; 
-                            
-                              }
+
+								  
+						    foreach ($listUsers as $value){
+								 if ($value['id']==$ratings->UserId) {
+                                    echo "<option value=".$value['id']." selected >".$value['name']."</option>";
+                              	 }
+								 else{
+                            		echo "<option value=".$value['id']." >".$value['name']."</option> "; 
+								 }
+                             }
                           
-                          }
+                          
     echo            "</select>                 
                 </div>
             </div>
@@ -148,12 +157,14 @@ if($ratings->Id>0){
             <div class='row'>
                 <div class='col-md-6'>    
                    <label id='lblMovie' class='text-left form-inline' style='color: blue'>Movie</label>
-                      ";?><select name='movieId' onchange='changeItem()'    class='form-control'>
-                          <option value='0' >Selecione...</option>";
+                      ";?>
+                      <select  id='ddlMovie' name='movieId' onchange='changeItem(this,this.value);'    class='form-control'>
+                          <option value='0' >Selecione...</option>
                       <?php
                        foreach ($listMovies as $value) {
         
-                            echo"<option value=".$value['id']."   >".$value['title']."</option>"  ;
+                            $movieIdKey= $value['id'];
+                            echo"<option value=".$movieIdKey."   >".$value['title']."</option>"  ;
                        
                         }
                         
@@ -174,12 +185,14 @@ if($ratings->Id>0){
                 </div>
                 <div class='col-md-6'>    
                     <label id='lblUser' class='text-left form-inline' style='color: blue'>User</label>
-                    ";?><select name='userId' onchange='changeItem()'     class='form-control'>
-                       <option value='0' >Selecione...</option>";
+                    ";?>
+                    <select id='ddlUser' name='userId' onchange='changeItem(this,this.value);'     class='form-control'>
+                       <option value='0' >Selecione...</option>
                        <?php
                        foreach ($listUsers as $value) {
         
-                            echo "<option value=".$value['id']." >".$value["name"]."</option>";
+                            $userIdKey=$value['id'];                            
+                            echo "<option value=".$userIdKey." >".$value["name"]."</option>";
                             
                       }
                        

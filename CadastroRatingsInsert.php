@@ -37,9 +37,9 @@ $ratings = new Ratings();
      
          
           
-          if($ratings->Id && $ratings->MovieId!='' && $ratings->Score!='' && $ratings->TimeStamp && $ratings->UserId !='' && $ratings->Ip!=''){        
+          if($ratings->MovieId!='' && $ratings->Score!='' && $ratings->TimeStamp && $ratings->UserId !='' && $ratings->Ip!=''){        
                        
-                   $controleratings->Salvar(isset($_GET['id']),$ratings->Id ,$ratings->MovieId ,$ratings->Score , $ratings->TimeStamp , $ratings->UserId ,$ratings->Ip);
+                   $controleratings->Salvar($ratings->Id ,$ratings->MovieId ,$ratings->Score , $ratings->TimeStamp , $ratings->UserId ,$ratings->Ip);
                    
                    
                    echo" <div class='text-center'><label class='alert alert-success alert-dismissible fade in' role='alert'><h3>Salvo com sucesso!</h3></lable></div>";
