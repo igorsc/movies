@@ -11,7 +11,8 @@
  *
  * @author Igor
  */
-require './model/BancoDados.php';
+//require './model/BancoDados.php';
+require './model/RatingsModel.php';
 class UsersModel extends BancoDados{
     //put your code here
    
@@ -126,16 +127,27 @@ class UsersModel extends BancoDados{
         try {
                $conn = new BancoDados();
                $conectar =$conn->Conectar();
+               $listratings= new RatingsModel();
               
               if ($conectar==null) {
                    
                 throw new Exception("Não foi possivel conectar ao banco de dados");
                 
               }else if ($id>0){
-        
-               
-                 $conectar->query("Delete from users where Id='$id' ;");
-                 echo "<div class='text-center'><label class='alert alert-success alert-dismissible fade in' role='alert'><h3>Deletado com sucesso!</h3></label></div>"; 
+                  
+                   try {
+
+                      foreach ( $listratings->GetData() as $value) {
+                          if ($id==$value['user']){
+                              throw new Exception("<div class='text-center'><label class='alert alert-danger alert-dismissible fade in' role='alert'><h3>Não pode deletar, porque ratings está obtendo este user, devendo ser deletado em ratings primeiro.</h3></label></div>");
+                          }
+                      }
+                      $conectar->query("Delete from users where Id='$id' ;");
+                      echo "<div class='text-center'><label class='alert alert-success alert-dismissible fade in' role='alert'><h3>Deletado com sucesso!</h3></label></div>"; 
+
+                  } catch (Exception $exc) {
+                     echo $exc->getMessage();
+                  }
               
               }else {
                  echo "<div class='text-center'><label class='alert alert-danger alert-dismissible fade in' role='alert'><h3>Não foi possivel deletar!</h3></label></div>"; 

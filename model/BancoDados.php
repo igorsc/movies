@@ -22,14 +22,14 @@
 
     public function Conectar() {
 
-            $server='127.0.0.1';
-            $user='root';
-            $senha='';
-            $db='json';
+            //$server='127.0.0.1';
+            //$user='root';
+            //$senha='';
+            //$db='json';
 
             try {
 
-              $link = new PDO('mysql:host='.$server.';dbname='.$db,$user,$senha);
+              $link = new PDO('mysql:host='.$this->server.';dbname='.$this->db,$this->user,$this->senha);
 
               return $link;
 
